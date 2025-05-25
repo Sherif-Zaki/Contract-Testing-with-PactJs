@@ -169,7 +169,7 @@ describe('Shirts Inventory', () => {
 
       await provider.executeTest(async (mockProvider) => {
         const response = await deleteShirt(mockProvider.url, testId);
-        expect(response).toBeUndefined;
+        expect(response).toBeUndefined();
       });
     });
   });

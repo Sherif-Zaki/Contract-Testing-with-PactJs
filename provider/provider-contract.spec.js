@@ -5,7 +5,7 @@ const port = '3001';
 const app = server.listen(port, () => console.log(`Listening on port ${port}...`));
  
 importData();
- 
+
 const options = {
   provider: 'ShirtsAPI',
   providerBaseUrl: `http://localhost:${port}`,
@@ -16,8 +16,17 @@ const options = {
   consumerVersionTags: ['main'],
   stateHandlers: {
     'Has a shirt with specific ID': (parameters) => {
-      movies.getFirstMovie().id = parameters.id;
-      //return Promise.resolve({ description: `Movie with ID ${parameters.id} added!` });
+      return new Promise((resolve) => {
+        // Clear all shirts first (optional, to have a clean state)
+        shirts.shirts.length = 0;
+        shirts.insertShirt({
+          id: parameters.id,
+          name: "My shirt",
+          price: 19.99,
+          quantity: 1,
+        });
+        resolve(`Shirt with ID ${parameters.id} is available for testing.`);
+      });
     }
   }
 };

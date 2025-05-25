@@ -10,7 +10,7 @@ class Shirt {
   }
 
   getShirtById(id) {
-    return this.shirts.find((shirt) => shirt.id === id); 
+    return this.shirts.find((shirt) => shirt.id === id);
   }
 
   getShirtByName(name) {
@@ -18,7 +18,9 @@ class Shirt {
   }
 
   insertShirt(shirt) {
-    shirt.id = uuidv4();
+    if (!shirt.id) {
+      shirt.id = uuidv4();
+    }
     this.shirts.push(shirt);
   }
 
