@@ -1,0 +1,7 @@
+[
+  { "id": "550e8400-e29b-41d4-a716-446655440000", "name": "Cotton T-shirt", "quantity": 100, "price": 89.99 },
+  { "id": "550e8400-e29b-41d4-a716-446655440001", "name": "Classic fit T-shirt", "quantity": 2008, "price": 14.99 },
+  { "id": "550e8400-e29b-41d4-a716-446655440002", "name": "Slim fit T-shirt", "quantity": 78, "price": 29.99 },
+  { "id": "550e8400-e29b-41d4-a716-446655440003", "name": "Hoodie", "quantity": 192, "price": 68.99 },
+  { "id": "550e8400-e29b-41d4-a716-446655440004", "name": "Polo shirt", "quantity": 34, "price": 112 }
+]

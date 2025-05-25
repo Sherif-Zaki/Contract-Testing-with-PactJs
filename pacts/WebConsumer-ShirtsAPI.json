@@ -1,0 +1,333 @@
+{
+  "consumer": {
+    "name": "WebConsumer"
+  },
+  "interactions": [
+    {
+      "description": "a request to a specific shirt",
+      "providerStates": [
+        {
+          "name": "Has a shirt with specific ID",
+          "params": {
+            "id": "uuid-string-example-1234"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/shirt/uuid-string-example-1234"
+      },
+      "response": {
+        "body": {
+          "id": "uuid-string-example-1234",
+          "name": "My shirt",
+          "price": 19.99,
+          "quantity": 1
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$.id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.name": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.price": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "decimal"
+                }
+              ]
+            },
+            "$.quantity": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            }
+          },
+          "status": {}
+        },
+        "status": 200
+      }
+    },
+    {
+      "description": "a request to add a new shirt",
+      "request": {
+        "body": {
+          "name": "New Shirt",
+          "price": 25.99,
+          "quantity": 10
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$.name": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.price": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "decimal"
+                }
+              ]
+            },
+            "$.quantity": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            }
+          },
+          "header": {}
+        },
+        "method": "POST",
+        "path": "/shirts"
+      },
+      "response": {
+        "body": {
+          "id": "uuid-string-example-1234",
+          "name": "New Shirt",
+          "price": 25.99,
+          "quantity": 10
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$.id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.name": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.price": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "decimal"
+                }
+              ]
+            },
+            "$.quantity": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            }
+          },
+          "status": {}
+        },
+        "status": 201
+      }
+    },
+    {
+      "description": "a request to all shirts",
+      "request": {
+        "method": "GET",
+        "path": "/shirts"
+      },
+      "response": {
+        "body": [
+          {
+            "id": "uuid-string-example-1234",
+            "name": "My shirt",
+            "price": 19.99,
+            "quantity": 1
+          }
+        ],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            }
+          },
+          "status": {}
+        },
+        "status": 200
+      }
+    },
+    {
+      "description": "a request to delete a shirt",
+      "providerStates": [
+        {
+          "name": "Has a shirt with specific ID",
+          "params": {
+            "id": "uuid-string-example-1234"
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "path": "/shirt/uuid-string-example-1234"
+      },
+      "response": {
+        "status": 204
+      }
+    },
+    {
+      "description": "a request to update a shirt",
+      "providerStates": [
+        {
+          "name": "Has a shirt with specific ID",
+          "params": {
+            "id": "uuid-string-example-1234"
+          }
+        }
+      ],
+      "request": {
+        "body": {
+          "name": "Updated Shirt",
+          "price": 29.99,
+          "quantity": 15
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$.name": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.price": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "decimal"
+                }
+              ]
+            },
+            "$.quantity": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            }
+          },
+          "header": {}
+        },
+        "method": "PUT",
+        "path": "/shirt/uuid-string-example-1234"
+      },
+      "response": {
+        "body": {
+          "id": "uuid-string-example-1234",
+          "name": "Updated Shirt",
+          "price": 29.99,
+          "quantity": 15
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$.id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.name": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.price": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "decimal"
+                }
+              ]
+            },
+            "$.quantity": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            }
+          },
+          "status": {}
+        },
+        "status": 200
+      }
+    }
+  ],
+  "metadata": {
+    "pact-js": {
+      "version": "15.0.1"
+    },
+    "pactRust": {
+      "ffi": "0.4.22",
+      "models": "1.2.3"
+    },
+    "pactSpecification": {
+      "version": "3.0.0"
+    }
+  },
+  "provider": {
+    "name": "ShirtsAPI"
+  }
+}
