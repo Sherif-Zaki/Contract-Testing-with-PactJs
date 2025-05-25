@@ -2,12 +2,12 @@
 
 A simple RESTful API for managing inventory items built with Node.js and Express.
 
-## Running the Shirts API locally
+## Running the Items API locally
 
 Install dependencies
 `npm i`
 
-Run the movies API
+Run the items API
 `npm run start:provider`
 
 ## Running the tests

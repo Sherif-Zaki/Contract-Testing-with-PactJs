@@ -1,5 +1,5 @@
 const { Verifier } = require('@pact-foundation/pact');
-const { importData, shirts, server } = require('./provider')
+const { importData, items, server } = require('./provider')
  
 const port = '3001';
 const app = server.listen(port, () => console.log(`Listening on port ${port}...`));
@@ -7,7 +7,7 @@ const app = server.listen(port, () => console.log(`Listening on port ${port}...`
 importData();
 
 const options = {
-  provider: 'ShirtsAPI',
+  provider: 'ItemsAPI',
   providerBaseUrl: `http://localhost:${port}`,
   pactBrokerUrl: process.env.PACT_BROKER_BASE_URL,
   pactBrokerToken: process.env.PACT_BROKER_TOKEN,
@@ -15,17 +15,17 @@ const options = {
   publishVerificationResult: true,
   consumerVersionTags: ['main'],
   stateHandlers: {
-    'Has a shirt with specific ID': (parameters) => {
+    'Has an item with specific ID': (parameters) => {
       return new Promise((resolve) => {
-        // Clear all shirts first (optional, to have a clean state)
-        shirts.shirts.length = 0;
-        shirts.insertShirt({
+        // Clear all items first (optional, to have a clean state)
+        items.items.length = 0;
+        items.insertItem({
           id: parameters.id,
-          name: "My shirt",
+          name: "My item",
           price: 19.99,
           quantity: 1,
         });
-        resolve(`Shirt with ID ${parameters.id} is available for testing.`);
+        resolve(`Item with ID ${parameters.id} is available for testing.`);
       });
     }
   }
@@ -34,7 +34,7 @@ const options = {
 const verifier = new Verifier(options);
 
 describe('Pact Verification', () => {
-  test('should validate the expectations of movie-consumer', () => {
+  test('should validate the expectations of item-consumer', () => {
     return verifier
       .verifyProvider()
       .then(output => {

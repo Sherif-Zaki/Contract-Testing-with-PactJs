@@ -1,51 +1,51 @@
 const axios = require('axios');
 
-const fetchSingleShirt = async (url, id) => {
+const fetchSingleItem = async (url, id) => {
   const response = await axios
-    .get(`${url}/shirt/${id}`)
+    .get(`${url}/item/${id}`)
     .then((res) => res.data)
     .catch((err) => err.response);
   return response;
 };
 
-const addNewShirt = async (url, shirtName, shirtPrice, shirtQuantity) => {
+const addNewItem = async (url, itemName, itemPrice, itemQuantity) => {
   const data = {
-    name: shirtName,
-    price: shirtPrice,
-    quantity: shirtQuantity
+    name: itemName,
+    price: itemPrice,
+    quantity: itemQuantity
   };
   const response = await axios
-    .post(`${url}/shirts`, data)
+    .post(`${url}/items`, data)
     .then((res) => res.data)
     .catch((err) => err.response.data.message);
   return response;
 };
 
-const updateShirt = async (url, id, shirtName, shirtPrice, shirtQuantity) => {
+const updateItem = async (url, id, itemName, itemPrice, itemQuantity) => {
   const data = {
-    name: shirtName,
-    price: shirtPrice,
-    quantity: shirtQuantity,
+    name: itemName,
+    price: itemPrice,
+    quantity: itemQuantity,
   };
   const response = await axios
-      .put(`${url}/shirt/${id}`, data)
+      .put(`${url}/item/${id}`, data)
       .then((res) => res.data)
       .catch((err) => err.response.data.message);
   return response;
 };
 
-const deleteShirt = async (url, id) => {
+const deleteItem = async (url, id) => {
   const response = await axios
-      .delete(`${url}/shirt/${id}`)
+      .delete(`${url}/item/${id}`)
       .then((res) => res.data.message)
       .catch((err) => err.response.data.message);
   return response;
 };
 
 module.exports = {
-  fetchSingleShirt,
-  addNewShirt,
-  updateShirt,
-  deleteShirt,
+  fetchSingleItem,
+  addNewItem,
+  updateItem,
+  deleteItem,
 };
 

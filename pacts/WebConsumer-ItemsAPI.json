@@ -4,10 +4,10 @@
   },
   "interactions": [
     {
-      "description": "a request to a specific shirt",
+      "description": "a request to a specific item",
       "providerStates": [
         {
-          "name": "Has a shirt with specific ID",
+          "name": "Has an item with specific ID",
           "params": {
             "id": "uuid-string-example-1234"
           }
@@ -15,12 +15,12 @@
       ],
       "request": {
         "method": "GET",
-        "path": "/shirt/uuid-string-example-1234"
+        "path": "/item/uuid-string-example-1234"
       },
       "response": {
         "body": {
           "id": "uuid-string-example-1234",
-          "name": "My shirt",
+          "name": "My item",
           "price": 19.99,
           "quantity": 1
         },
@@ -68,10 +68,10 @@
       }
     },
     {
-      "description": "a request to add a new shirt",
+      "description": "a request to add a new item",
       "request": {
         "body": {
-          "name": "New Shirt",
+          "name": "New Item",
           "price": 25.99,
           "quantity": 10
         },
@@ -108,12 +108,12 @@
           "header": {}
         },
         "method": "POST",
-        "path": "/shirts"
+        "path": "/items"
       },
       "response": {
         "body": {
           "id": "uuid-string-example-1234",
-          "name": "New Shirt",
+          "name": "New Item",
           "price": 25.99,
           "quantity": 10
         },
@@ -161,10 +161,10 @@
       }
     },
     {
-      "description": "a request to delete a shirt",
+      "description": "a request to delete an item",
       "providerStates": [
         {
-          "name": "Has a shirt with specific ID",
+          "name": "Has an item with specific ID",
           "params": {
             "id": "uuid-string-example-1234"
           }
@@ -172,17 +172,17 @@
       ],
       "request": {
         "method": "DELETE",
-        "path": "/shirt/uuid-string-example-1234"
+        "path": "/item/uuid-string-example-1234"
       },
       "response": {
         "status": 204
       }
     },
     {
-      "description": "a request to update a shirt",
+      "description": "a request to update an item",
       "providerStates": [
         {
-          "name": "Has a shirt with specific ID",
+          "name": "Has an item with specific ID",
           "params": {
             "id": "uuid-string-example-1234"
           }
@@ -190,7 +190,7 @@
       ],
       "request": {
         "body": {
-          "name": "Updated Shirt",
+          "name": "Updated Item",
           "price": 29.99,
           "quantity": 15
         },
@@ -227,12 +227,12 @@
           "header": {}
         },
         "method": "PUT",
-        "path": "/shirt/uuid-string-example-1234"
+        "path": "/item/uuid-string-example-1234"
       },
       "response": {
         "body": {
           "id": "uuid-string-example-1234",
-          "name": "Updated Shirt",
+          "name": "Updated Item",
           "price": 29.99,
           "quantity": 15
         },
@@ -293,6 +293,6 @@
     }
   },
   "provider": {
-    "name": "ShirtsAPI"
+    "name": "ItemsAPI"
   }
 }

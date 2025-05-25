@@ -1,31 +1,31 @@
 const Joi = require('joi');
 const express = require('express');
-const Shirts = require('./shirts')
+const Items = require('./items')
 
 const server = express();
 server.use(express.json());
 
-const shirts = new Shirts();
+const items = new Items();
 
-// Load default data into the Shirts class
+// Load default data into the Items class
 const importData = () => {
-  const data = require('.././data/shirts.json');
-  data.forEach(shirt => {
-    // Do NOT set shirt.id here, let insertShirt handle it
-    shirts.insertShirt(shirt);
+  const data = require('.././data/items.json');
+  data.forEach(item => {
+    // Do NOT set item.id here, let insertItem handle it
+    items.insertItem(item);
   });
 };
 
 
-server.get('/shirt/:id', (req, res) => {
-  const shirt = shirts.getShirtById(req.params.id);
-  if (!shirt) {
-    return res.status(404).send('Shirt does not exist.');
+server.get('/item/:id', (req, res) => {
+  const item = items.getItemById(req.params.id);
+  if (!item) {
+    return res.status(404).send('Item does not exist.');
   }
-  return res.status(200).send(shirt);
+  return res.status(200).send(item);
 });
 
-server.post('/shirts', (req, res) => {
+server.post('/items', (req, res) => {
   const schema = Joi.object({
     name: Joi.string().required(),
     quantity: Joi.number().integer().min(0).max(2000).required(),
@@ -35,21 +35,21 @@ server.post('/shirts', (req, res) => {
   const result = schema.validate(req.body);
   if (result.error) return res.status(400).send(result.error.details[0]);
 
-  if (shirts.getShirtByName(req.body.name)) {
-    return res.status(400).send(`Shirt ${req.body.name} already exists`);
+  if (items.getItemByName(req.body.name)) {
+    return res.status(400).send(`Item ${req.body.name} already exists`);
   }
 
-  const shirt = {
+  const item = {
     name: req.body.name,
     quantity: req.body.quantity,
     price: req.body.price,
   };
 
-  shirts.insertShirt(shirt);
-  return res.status(201).send(shirt);
+  items.insertItem(item);
+  return res.status(201).send(item);
 });
 
-server.put('/shirt/:id', (req, res) => {
+server.put('/item/:id', (req, res) => {
   const schema = Joi.object({
     name: Joi.string().required(),
     quantity: Joi.number().integer().min(0).max(2000).required(),
@@ -61,22 +61,22 @@ server.put('/shirt/:id', (req, res) => {
     return res.status(400).send({ error: error.details[0].message });
   }
 
-  const shirt = shirts.getShirtById(req.params.id);
-  if (!shirt) {
-    return res.status(404).send(`Shirt with id ${req.params.id} not found`);
+  const item = items.getItemById(req.params.id);
+  if (!item) {
+    return res.status(404).send(`Item with id ${req.params.id} not found`);
   }
 
-  shirt.name = req.body.name;
-  shirt.quantity = req.body.quantity;
-  shirt.price = req.body.price;
+  item.name = req.body.name;
+  item.quantity = req.body.quantity;
+  item.price = req.body.price;
 
-  return res.status(200).send(shirt);
+  return res.status(200).send(item);
 });
 
-server.delete('/shirt/:id', (req, res) => {
-  const success = shirts.deleteShirt(req.params.id);
+server.delete('/item/:id', (req, res) => {
+  const success = items.deleteItem(req.params.id);
   if (!success) {
-    return res.status(404).send(`Shirt ${req.params.id} not found`);
+    return res.status(404).send(`Item ${req.params.id} not found`);
   }
 
   return res.status(204).send();
@@ -85,5 +85,5 @@ server.delete('/shirt/:id', (req, res) => {
 module.exports = {
   server,
   importData,
-  shirts,
+  items,
 };

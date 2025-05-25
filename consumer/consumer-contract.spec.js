@@ -1,9 +1,9 @@
 const path = require('path');
 const {
-  fetchSingleShirt,
-  addNewShirt,
-  updateShirt,
-  deleteShirt,
+  fetchSingleItem,
+  addNewItem,
+  updateItem,
+  deleteItem,
 } = require('./consumer');
 const {PactV3, MatchersV3} = require('@pact-foundation/pact');
 
@@ -17,24 +17,24 @@ const {
 const provider = new PactV3({
   dir: path.resolve(process.cwd(), 'pacts'),
   consumer: 'WebConsumer',
-  provider: 'ShirtsAPI',
+  provider: 'ItemsAPI',
 });
 
-const EXPECTED_BODY = {id: 'uuid-string-example-1234', name: "My shirt", price: 19.99, quantity: 1};
+const EXPECTED_BODY = {id: 'uuid-string-example-1234', name: "My item", price: 19.99, quantity: 1};
 
-describe('Shirts Inventory', () => {
+describe('Items Inventory', () => {
 
-  describe('When a GET request is made to a specific shirt ID', () => {
-    test('it should return a specific shirt', async () => {
+  describe('When a GET request is made to a specific item ID', () => {
+    test('it should return a specific item', async () => {
       const testId = 'uuid-string-example-1234';
       EXPECTED_BODY.id = testId;
 
       provider
-        .given('Has a shirt with specific ID', {id: testId})
-        .uponReceiving('a request to a specific shirt')
+        .given('Has an item with specific ID', {id: testId})
+        .uponReceiving('a request to a specific item')
         .withRequest({
           method: 'GET',
-          path: `/shirt/${testId}`,
+          path: `/item/${testId}`,
         })
         .willRespondWith({
           status: 200,
@@ -47,100 +47,100 @@ describe('Shirts Inventory', () => {
         });
 
       await provider.executeTest(async mockProvider => {
-        const shirts = await fetchSingleShirt(mockProvider.url, testId);
-        expect(shirts).toEqual(EXPECTED_BODY);
+        const items = await fetchSingleItem(mockProvider.url, testId);
+        expect(items).toEqual(EXPECTED_BODY);
       });
     });
   });
 
-  describe('When a POST request is made to add a new shirt', () => {
-    test('it should add the shirt and return it', async () => {
-      const newShirt = { name: 'New Shirt', price: 25.99, quantity: 10 };
+  describe('When a POST request is made to add a new item', () => {
+    test('it should add the item and return it', async () => {
+      const newItem = { name: 'New Item', price: 25.99, quantity: 10 };
 
       provider
-        .uponReceiving('a request to add a new shirt')
+        .uponReceiving('a request to add a new item')
         .withRequest({
           method: 'POST',
-          path: '/shirts',
+          path: '/items',
           headers: { 'Content-Type': 'application/json' },
           body: {
-            name: string(newShirt.name),
-            price: decimal(newShirt.price),
-            quantity: integer(newShirt.quantity),
+            name: string(newItem.name),
+            price: decimal(newItem.price),
+            quantity: integer(newItem.quantity),
           }
         })
         .willRespondWith({
           status: 201,
           body: {
             id: string(EXPECTED_BODY.id),
-            name: string(newShirt.name),
-            price: decimal(newShirt.price),
-            quantity: integer(newShirt.quantity),
+            name: string(newItem.name),
+            price: decimal(newItem.price),
+            quantity: integer(newItem.quantity),
           }
         });
 
       await provider.executeTest(async (mockProvider) => {
-        const response = await addNewShirt(mockProvider.url, newShirt.name, newShirt.price, newShirt.quantity);
+        const response = await addNewItem(mockProvider.url, newItem.name, newItem.price, newItem.quantity);
         expect(response).toEqual({
           id: EXPECTED_BODY.id,
-          name: newShirt.name,
-          price: newShirt.price,
-          quantity: newShirt.quantity,
+          name: newItem.name,
+          price: newItem.price,
+          quantity: newItem.quantity,
         });
       });
     });
   });
 
-  describe('When a PUT request is made to update a shirt', () => {
-    test('it should update the shirt and return it', async () => {
+  describe('When a PUT request is made to update an item', () => {
+    test('it should update the item and return it', async () => {
       const testId = EXPECTED_BODY.id;
-      const updatedShirt = { name: 'Updated Shirt', price: 29.99, quantity: 15 };
+      const updatedItem = { name: 'Updated Item', price: 29.99, quantity: 15 };
 
       provider
-        .given('Has a shirt with specific ID', { id: testId })
-        .uponReceiving('a request to update a shirt')
+        .given('Has an item with specific ID', { id: testId })
+        .uponReceiving('a request to update an item')
         .withRequest({
           method: 'PUT',
-          path: `/shirt/${testId}`,
+          path: `/item/${testId}`,
           headers: { 'Content-Type': 'application/json' },
           body: {
-            name: string(updatedShirt.name),
-            price: decimal(updatedShirt.price),
-            quantity: integer(updatedShirt.quantity),
+            name: string(updatedItem.name),
+            price: decimal(updatedItem.price),
+            quantity: integer(updatedItem.quantity),
           }
         })
         .willRespondWith({
           status: 200,
           body: {
             id: string(testId),
-            name: string(updatedShirt.name),
-            price: decimal(updatedShirt.price),
-            quantity: integer(updatedShirt.quantity),
+            name: string(updatedItem.name),
+            price: decimal(updatedItem.price),
+            quantity: integer(updatedItem.quantity),
           }
         });
 
       await provider.executeTest(async (mockProvider) => {
-        const response = await updateShirt(mockProvider.url, testId, updatedShirt.name, updatedShirt.price, updatedShirt.quantity);
+        const response = await updateItem(mockProvider.url, testId, updatedItem.name, updatedItem.price, updatedItem.quantity);
         expect(response).toEqual({
           id: testId,
-          name: updatedShirt.name,
-          price: updatedShirt.price,
-          quantity: updatedShirt.quantity,
+          name: updatedItem.name,
+          price: updatedItem.price,
+          quantity: updatedItem.quantity,
         });
       });
     });
   });
 
-  describe('When a DELETE request is made to delete a shirt', () => {
-    test('it should delete the shirt and return confirmation', async () => {
+  describe('When a DELETE request is made to delete an item', () => {
+    test('it should delete the item and return confirmation', async () => {
       const testId = EXPECTED_BODY.id;
 
       provider
-        .given('Has a shirt with specific ID', { id: testId })
-        .uponReceiving('a request to delete a shirt')
+        .given('Has an item with specific ID', { id: testId })
+        .uponReceiving('a request to delete an item')
         .withRequest({
           method: 'DELETE',
-          path: `/shirt/${testId}`,
+          path: `/item/${testId}`,
         })
         .willRespondWith({
           status: 204,
@@ -148,7 +148,7 @@ describe('Shirts Inventory', () => {
         });
 
       await provider.executeTest(async (mockProvider) => {
-        const response = await deleteShirt(mockProvider.url, testId);
+        const response = await deleteItem(mockProvider.url, testId);
         expect(response).toBeUndefined();
       });
     });
