@@ -2,6 +2,14 @@
 
 A simple RESTful API for managing inventory items built with Node.js and Express.
 
+## Prerequisites
+
+Before getting started, make sure you have the following installed on your machine:
+
+- [**Node.js**](https://nodejs.org/) (v14 or higher recommended)
+- [**npm**](https://www.npmjs.com/get-npm)
+- An account on [**Pactflow**](https://pactflow.io/) (you can sign up for their free developer plan)
+
 ## Running the Items API locally
 
 Install dependencies
