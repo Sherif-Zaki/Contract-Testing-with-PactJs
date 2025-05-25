@@ -11,7 +11,6 @@ const items = new Items();
 const importData = () => {
   const data = require('.././data/items.json');
   data.forEach(item => {
-    // Do NOT set item.id here, let insertItem handle it
     items.insertItem(item);
   });
 };
