@@ -1,13 +1,5 @@
 const axios = require('axios');
 
-const fetchShirts = async (url) => {
-  const response = await axios
-    .get(`${url}/shirts`)
-    .then((res) => res.data)
-    .catch((err) => err.response);
-  return response;
-};
-
 const fetchSingleShirt = async (url, id) => {
   const response = await axios
     .get(`${url}/shirt/${id}`)
@@ -51,7 +43,6 @@ const deleteShirt = async (url, id) => {
 };
 
 module.exports = {
-  fetchShirts,
   fetchSingleShirt,
   addNewShirt,
   updateShirt,

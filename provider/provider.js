@@ -16,9 +16,6 @@ const importData = () => {
   });
 };
 
-server.get('/shirts', (req, res) => {
-  res.send(shirts.getShirts());
-});
 
 server.get('/shirt/:id', (req, res) => {
   const shirt = shirts.getShirtById(req.params.id);

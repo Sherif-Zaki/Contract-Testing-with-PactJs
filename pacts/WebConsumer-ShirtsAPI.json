@@ -161,41 +161,6 @@
       }
     },
     {
-      "description": "a request to all shirts",
-      "request": {
-        "method": "GET",
-        "path": "/shirts"
-      },
-      "response": {
-        "body": [
-          {
-            "id": "uuid-string-example-1234",
-            "name": "My shirt",
-            "price": 19.99,
-            "quantity": 1
-          }
-        ],
-        "headers": {
-          "Content-Type": "application/json"
-        },
-        "matchingRules": {
-          "body": {
-            "$": {
-              "combine": "AND",
-              "matchers": [
-                {
-                  "match": "type",
-                  "min": 1
-                }
-              ]
-            }
-          },
-          "status": {}
-        },
-        "status": 200
-      }
-    },
-    {
       "description": "a request to delete a shirt",
       "providerStates": [
         {

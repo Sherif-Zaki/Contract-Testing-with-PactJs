@@ -5,10 +5,6 @@ class Shirt {
     this.shirts = [];
   }
 
-  getShirts() {
-    return this.shirts;
-  }
-
   getShirtById(id) {
     return this.shirts.find((shirt) => shirt.id === id);
   }

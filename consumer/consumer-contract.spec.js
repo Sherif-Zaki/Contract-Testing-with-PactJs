@@ -1,6 +1,5 @@
 const path = require('path');
 const {
-  fetchShirts,
   fetchSingleShirt,
   addNewShirt,
   updateShirt,
@@ -24,25 +23,6 @@ const provider = new PactV3({
 const EXPECTED_BODY = {id: 'uuid-string-example-1234', name: "My shirt", price: 19.99, quantity: 1};
 
 describe('Shirts Inventory', () => {
-  describe('When a GET request is made to /shirts', () => {
-    test('it should return all shirts', async () => {
-      provider
-        .uponReceiving('a request to all shirts')
-        .withRequest({
-          method: 'GET',
-          path: '/shirts',
-        })
-        .willRespondWith({
-          status: 200,
-          body: eachLike(EXPECTED_BODY),
-        });
-
-      await provider.executeTest(async mockProvider => {
-        const shirts = await fetchShirts(mockProvider.url);
-        expect(shirts[0]).toEqual(EXPECTED_BODY);
-      });
-    });
-  });
 
   describe('When a GET request is made to a specific shirt ID', () => {
     test('it should return a specific shirt', async () => {
