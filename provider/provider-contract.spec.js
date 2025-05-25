@@ -17,7 +17,7 @@ const options = {
   stateHandlers: {
     'Has an item with specific ID': (parameters) => {
       return new Promise((resolve) => {
-        // Clear all items first (optional, to have a clean state)
+        // Clear all items first to have a clean state
         items.items.length = 0;
         items.insertItem({
           id: parameters.id,
